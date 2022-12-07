@@ -4,29 +4,13 @@ import {Movie} from '../types/movie.type';
 import {MoviesService} from '../movies.service';
 import {fromEvent, Observable, Subject, Subscription, takeUntil} from 'rxjs';
 import {MovieDetail} from '../types/movie-detail.type';
+import { FLIPCARD } from '../animations/movie-animation';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css'],
-  animations: [
-    trigger('flipState', [
-      state(
-        'active',
-        style({
-          transform: 'rotateX(179deg)',
-        })
-      ),
-      state(
-        'inactive',
-        style({
-          transform: 'rotateX(0)',
-        })
-      ),
-      transition('active => inactive', animate('500ms ease-out')),
-      transition('inactive => active', animate('500ms ease-in')),
-    ]),
-  ],
+  animations: [FLIPCARD],
 })
 export class CardComponent implements OnInit, OnDestroy {
   @Input() movie?: Movie;

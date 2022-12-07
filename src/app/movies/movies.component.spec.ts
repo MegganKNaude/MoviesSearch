@@ -13,7 +13,8 @@ describe('MoviesComponent', () => {
     await TestBed.configureTestingModule({
       declarations: [ MoviesComponent ],
       imports: [HttpClientTestingModule, BrowserAnimationsModule],
-      providers: [{provide: HttpClient}, { provide: MoviesService, use: MoviesService}]
+      providers: [{provide: HttpClient, useClass: HttpClient},
+        { provide: MoviesService, useClass: MoviesService}]
     })
     .compileComponents();
 
@@ -31,11 +32,17 @@ describe('MoviesComponent', () => {
     expect(compiled.querySelector('p').textContent).toContain('There are currently no active searches...');
   })
 
-  it('if text is too short it should display a different message', () => {
+  it('if text is too short it should display a different message', async () => {
     const compiled = fixture.debugElement.nativeElement;
+    spyOn(component, 'checkAndFetchMovies').and.callThrough();
     component.textToSearch = 'aa';
+    component.checkAndFetchMovies(component.textToSearch.length);
+
+    await fixture.whenStable();
     fixture.detectChanges();
+
+    expect(component.checkAndFetchMovies).toHaveBeenCalled();
+    expect(component.tooShort).toBe(true);
     expect(compiled.querySelector('p').textContent).toContain('Keep typing... I\'m thinking');
   })
-
 });
