@@ -1,0 +1,55 @@
+<div class="flip-card">
+  <div class="flip-card-inner">
+    <div class="flip-card-front">
+      <img [src]="movie?.Poster === 'N/A' ? 'assets/images/not-ready.jpg' : movie?.Poster" [alt]="movie?.Title"
+           style="width:300px; height:300px; ">
+      <div class="centered">{{movie?.Title}}</div>
+    </div>
+    <div class="flip-card-back">
+      <div *ngIf="!showAdditionalInfo">
+        <mat-toolbar-row class="top">
+          <span>{{movie?.Title}}</span>
+        </mat-toolbar-row>
+        <div style="margin-top: 70px;">
+          <div>
+            <img [src]="movie?.Poster === 'N/A' ? 'assets/images/not-ready.jpg' : movie?.Poster" [alt]="movie?.Title"
+                 style="width:100px; height:150px; ">
+          </div>
+          <div style="display: inline-block; margin-top: 13px;">
+            <p>Type : {{movie?.Type}}</p>
+            <p>Year : {{removeSpecialCharacters(movie?.Year)}}</p>
+            <p>Genre : {{movieDetails.Genre}}</p>
+            <p>Rated : {{movieDetails.Rated}}</p>
+            <p>Runtime : {{movieDetails.Runtime}}</p>
+          </div>
+        </div>
+        <button *ngIf="isMobileLayout" class="right" mat-fab extended (touchstart)="toggleExtraInfo();">
+          <mat-icon>info</mat-icon>
+        </button>
+        <button *ngIf="!isMobileLayout" class="right" mat-fab extended (click)="toggleExtraInfo();">
+          <mat-icon>info</mat-icon>
+        </button>
+      </div>
+      <div *ngIf="showAdditionalInfo">
+        <mat-toolbar-row class="top">
+          <span>{{movie?.Title}}</span>
+        </mat-toolbar-row>
+        <div style="margin-top: 70px; margin-left: 20px; margin-right: 20px">
+          <div>
+            <img [src]="movie?.Poster === 'N/A' ? 'assets/images/not-ready.jpg' : movie?.Poster" [alt]="movie?.Title"
+                 style="width:100px; height:150px; ">
+          </div>
+          <p>{{movieDetails.Plot}}</p>
+        </div>
+        <button *ngIf="isMobileLayout" class="right" mat-fab extended (touchstart)="toggleExtraInfo();">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <button *ngIf="!isMobileLayout" class="right" mat-fab extended (click)="toggleExtraInfo();">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

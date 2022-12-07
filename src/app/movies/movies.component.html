@@ -1,0 +1,27 @@
+<div *ngIf="isEmptyObject(this.movies) && !this.tooShort" style="margin-top:10px;">
+  <p style="text-align: center">There are currently no active searches...</p>
+</div>
+<div *ngIf="this.tooShort" style="margin-top:10px; text-align: center">
+  <p style="text-align: center">Keep typing... I'm thinking</p>
+</div>
+<mat-button-toggle-group (change)="onToggleChange($event.value)" name="fontStyle" aria-label="Font Style" value="all"
+                         style="width: 242.88px; margin-top:10px; margin-left: calc(50% - 121.44px);">
+  <mat-button-toggle value="movie">Movie</mat-button-toggle>
+  <mat-button-toggle value="series">Series</mat-button-toggle>
+  <mat-button-toggle value="episode">Episode</mat-button-toggle>
+  <mat-button-toggle value="all">All</mat-button-toggle>
+</mat-button-toggle-group>
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="1"
+  [infiniteScrollThrottle]="500"
+  (scrolled)="onScroll()"
+>
+  <div class="row" [@listAnimation]="movies.Search?.length" *ngIf="movies">
+    <div class="col-xl-3 col-lg-4 col-md-6 col-sm-12 justify-content-start" align="center"
+         *ngFor="let movie of movies.Search" style="margin-top: 20px;">
+      <app-card [movie]="movie"></app-card>
+    </div>
+  </div>
+</div>
+

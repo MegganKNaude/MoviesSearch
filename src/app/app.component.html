@@ -1,0 +1,8 @@
+<div>
+  <div>
+    <app-search-bar (searchedMovie)="setSearchedMovie($event)"></app-search-bar>
+  </div>
+  <div>
+    <app-movies [textToSearch]="textToSearch"></app-movies>
+  </div>
+</div>
